@@ -31,6 +31,7 @@ stages:
             verbosityRestore: 'Normal'
 
         - task: DotNetCoreCLI@2
+          displayName: 'Build solution'
           inputs:
             command: 'build'
             projects: '$(solutionFolder)/$(solutionName)'
@@ -39,5 +40,5 @@ stages:
           displayName: 'Run Unit/Integration Tests'
           inputs:
             command: 'test'
-            projects: '$(solutionFolder)/$(solutionName).sln'
+            projects: '$(solutionFolder)/$(solutionName)'
 
