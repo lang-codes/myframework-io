@@ -10,8 +10,27 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  buildConfiguration: 'Release'
+  solutionName: 'MyFramework.IO.sln'
+  solutionFolder: 'MyFramework.IO'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+stages:
+- stage: Build
+  displayName: 'Build and Test Artifact'
+  jobs:
+    - job: Build
+      displayName: 'Build and Test Artifact'
+      
+      steps:
+        - task: DotNetCoreCLI@2
+          displayName: 'Restore NuGet packages'
+          inputs:
+            command: 'restore'
+            projects: '$(solutionFolder)/$(solutionName).sln'
+            verbosityRestore: 'Normal'
+
+        - task: DotNetCoreCLI@2
+          displayName: 'Run Unit/Integration Tests'
+          inputs:
+            command: 'test'
+            projects: '$(solutionFolder)/$(solutionName).sln'
+
