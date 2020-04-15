@@ -26,10 +26,15 @@ stages:
           displayName: 'Restore NuGet packages'
           inputs:
             command: 'restore'
-            projects: '$(solutionFolder)/$(solutionName).sln'
+            projects: '**/*.csproj'
             feedsToUse: 'select'
             verbosityRestore: 'Normal'
-      
+
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'build'
+            projects: '$(solutionFolder)/$(solutionName)'
+
         - task: DotNetCoreCLI@2
           displayName: 'Run Unit/Integration Tests'
           inputs:
