@@ -21,13 +21,15 @@ stages:
       displayName: 'Build and Test Artifact'
       
       steps:
+
         - task: DotNetCoreCLI@2
           displayName: 'Restore NuGet packages'
           inputs:
             command: 'restore'
             projects: '$(solutionFolder)/$(solutionName).sln'
+            feedsToUse: 'select'
             verbosityRestore: 'Normal'
-
+      
         - task: DotNetCoreCLI@2
           displayName: 'Run Unit/Integration Tests'
           inputs:
