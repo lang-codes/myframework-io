@@ -67,7 +67,7 @@ namespace MyFramework.IO.Domain.Test
             var result = foo1.Equals(foo2);
 
             //Assert
-            Assert.True(result);
+            Assert.False(result);
         }
     }
 }
