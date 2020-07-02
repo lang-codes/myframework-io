@@ -30,6 +30,13 @@ stages:
             feedsToUse: 'select'
             verbosityRestore: 'Normal'
 
+        - task: SonarQubePreBuild@1
+          inputs:
+            projectKey: 'lang-codes_myframework-io'
+            projectName: 'myframework-io'
+            projectVersion: '1.0'
+            connectedServiceName: 'sonar'
+
         - task: DotNetCoreCLI@2
           displayName: 'Build solution'
           inputs:
@@ -42,3 +49,4 @@ stages:
             command: 'test'
             projects: '$(solutionFolder)/$(solutionName)'
 
+        - task: SonarQubePostTest@1
