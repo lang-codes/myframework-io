@@ -30,13 +30,14 @@ stages:
             feedsToUse: 'select'
             verbosityRestore: 'Normal'
 
-        - task: SonarQubePrepare@4
+        - task: SonarCloudPrepare@1
           inputs:
-            SonarQube: 'sonarcloud'
+            SonarCloud: 'SonarCloud'
+            organization: 'lang-codes'
             scannerMode: 'MSBuild'
             projectKey: 'lang-codes_myframework-io'
             projectName: 'sonar.projectName'
-
+        
         - task: DotNetCoreCLI@2
           displayName: 'Build solution'
           inputs:
@@ -49,8 +50,8 @@ stages:
             command: 'test'
             projects: '$(solutionFolder)/$(solutionName)'
 
-        - task: SonarQubeAnalyze@4
+        - task: SonarCloudAnalyze@1
 
-        - task: SonarQubePublish@4
+        - task: SonarCloudPublish@1
           inputs:
             pollingTimeoutSec: '300'
